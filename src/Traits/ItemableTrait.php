@@ -38,9 +38,12 @@ trait ItemableTrait
         return $item;
     }
 
+    /**
+     * @return Collection<int, Item>
+     */
     public function getItems(): Collection
     {
-        return $this->items->sortBy(fn (Item $item) => $item->getWeight());
+        return $this->items->sortBy(fn (Item $item): int => $item->getWeight());
     }
 
     public function hasItems(): bool
