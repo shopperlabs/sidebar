@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shopper\Sidebar\Domain;
 
+use BackedEnum;
 use Closure;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Collection;
@@ -55,9 +56,9 @@ class DefaultItem implements Item, Serializable
 
     protected string $toggleActiveIcon = 'untitledui-chevron-up';
 
-    protected string $toggleIconClass = 'h-5 w-5';
+    protected string $toggleIconClass = 'size-5';
 
-    protected string $toggleActiveIconClass = 'h-5 w-5';
+    protected string $toggleActiveIconClass = 'size-5';
 
     protected bool $activeWhen = false;
 
@@ -165,9 +166,9 @@ class DefaultItem implements Item, Serializable
     /**
      * @param  array<string, string>  $attributes
      */
-    public function setIcon(string $icon, string $type = 'blade', string $iconClass = '', array $attributes = []): Item
+    public function setIcon(string|BackedEnum $icon, string $type = 'blade', string $iconClass = '', array $attributes = []): Item
     {
-        $this->icon = $icon;
+        $this->icon = $icon instanceof BackedEnum ? $icon->value : $icon;
         $this->type = $type;
         $this->iconClass = $iconClass;
         $this->iconAttributes = $attributes;
